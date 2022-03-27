@@ -1,0 +1,29 @@
+{
+  "name": "youtube-util",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dkaksl/youtube-util.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dkaksl/youtube-util/issues"
+  },
+  "homepage": "https://github.com/dkaksl/youtube-util#readme",
+  "devDependencies": {
+    "prettier": "^2.6.1",
+    "typescript": "^4.6.3"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  }
+}
