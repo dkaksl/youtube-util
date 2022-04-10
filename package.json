@@ -1,10 +1,13 @@
 {
-  "name": "youtube-util",
+  "name": "yt-util",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "clean": "rm -rf dist/",
+    "copy-artifacts": "cp manifest.json dist/",
+    "copy-to-windows": "mkdir -p /mnt/c/Users/amani/Desktop/yt-util/ && cp -r dist/ /mnt/c/Users/amani/Desktop/yt-util/",
+    "build": "npm run clean && tsc && npm run copy-artifacts && npm run copy-to-windows",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +22,8 @@
   },
   "homepage": "https://github.com/dkaksl/youtube-util#readme",
   "devDependencies": {
+    "@tsconfig/node14": "^1.0.1",
+    "@types/chrome": "^0.0.180",
     "prettier": "^2.6.1",
     "typescript": "^4.6.3"
   },
