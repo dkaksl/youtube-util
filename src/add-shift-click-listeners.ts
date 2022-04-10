@@ -12,7 +12,8 @@ var onShiftClick = (e: any) => {
   }
 }
 
-const main = () => {
+// var to prevent syntax errors in case the extension is loaded multiple times
+var main = () => {
   const dismissibles = document.querySelectorAll(
     '[id=dismissible]'
   ) as NodeListOf<HTMLElement>
