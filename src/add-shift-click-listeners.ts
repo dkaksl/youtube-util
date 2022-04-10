@@ -1,7 +1,13 @@
 // var to prevent syntax errors in case the extension is loaded multiple times
 var onShiftClick = (e: any) => {
   if (e.shiftKey) {
-    console.log('event', e)
+    const path = e.path
+    if (Array.isArray(path)) {
+      const a = path.find(
+        (element) => element.id === 'dismissible'
+      ) as HTMLElement
+      a.style.visibility = 'hidden'
+    }
     e.preventDefault()
   }
 }
