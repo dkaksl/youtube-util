@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf dist/",
     "copy-artifacts": "cp manifest.json dist/",
-    "copy-to-windows": "mkdir -p /mnt/c/Users/amani/Desktop/yt-util/ && cp -r dist/ /mnt/c/Users/amani/Desktop/yt-util/",
+    "copy-to-windows": "HOST_DESKTOP=$(wslpath \"$(wslvar USERPROFILE)\")/Desktop/yt-util/ && mkdir -p $HOST_DESKTOP && cp -r dist/ $HOST_DESKTOP",
     "build": "npm run clean && tsc && npm run copy-artifacts && npm run copy-to-windows",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
