@@ -64,14 +64,10 @@ var getWatchIdFromDismissibleElement = (element: HTMLElement) => {
 
 var main = () => {
   chrome.storage.sync.get('managedItems', ({ managedItems }) => {
-    const storedManagedItems: ManagedItem[] = managedItems
-      .filter((item: any) => typeof item === 'string')
-      .map((item: string) => parseItemString(item))
-    console.log(
-      `found managedItems ${JSON.stringify(
-        storedManagedItems
-      )} in chrome storage`
-    )
+    const storedManagedItems: ManagedItem[] =
+      managedItems
+        ?.filter((item: any) => typeof item === 'string')
+        .map((item: string) => parseItemString(item)) || []
     const dismissibles = document.querySelectorAll(
       '[id=dismissible]'
     ) as NodeListOf<HTMLElement>
