@@ -5,32 +5,34 @@ var onShiftClick = (e: any) => {
       const dismissible = path.find(
         (element) => element.id === 'dismissible'
       ) as HTMLElement
-      setDismissibleElementVisibility(dismissible, true)
+      setDismissibleElementVisibility(dismissible, 1)
       const watchId = getWatchIdFromDismissibleElement(dismissible)
       console.log(`set item with watchid ${watchId} to hidden`)
       if (watchId) {
-        setManagedItem(watchId, true)
+        storeManagedItem(watchId, 1)
       }
     }
     e.preventDefault()
   }
 }
 
+type Hidden = 0 | 1
+
 interface ManagedItem {
   watchId: string
-  hidden: boolean
+  hidden: Hidden
 }
 
 var parseItemString = (itemString: string) => {
   const parts = itemString.split(':')
-  return { watchId: parts[0], hidden: parts[1] === 'true' }
+  return { watchId: parts[0], hidden: parseInt(parts[1]) }
 }
 
-var getItemString = (watchId: string, hidden: boolean) => {
+var getItemString = (watchId: string, hidden: Hidden) => {
   return `${watchId}:${hidden.toString()}`
 }
 
-var setManagedItem = (watchId: string, hidden: boolean) => {
+var storeManagedItem = (watchId: string, hidden: Hidden) => {
   console.log(`DEBUG: setting ${watchId} to hidden: ${hidden}`)
   chrome.storage.sync.get('managedItems', ({ managedItems }) => {
     const storedManagedItems: ManagedItem[] = managedItems
@@ -46,20 +48,23 @@ var setManagedItem = (watchId: string, hidden: boolean) => {
     chrome.storage.sync.set({
       managedItems: items.map((item) =>
         getItemString(item.watchId, item.hidden)
-      ),
+      )
     })
   })
 }
 
 var setDismissibleElementVisibility = (
   element: HTMLElement,
-  hidden: boolean
+  hidden: Hidden
 ) => {
-  element.style.visibility = hidden ? 'hidden' : ''
+  element.style.visibility = hidden === 1 ? 'hidden' : ''
 }
 
 var getWatchIdFromDismissibleElement = (element: HTMLElement) => {
-  return element.children[0].children[0].getAttribute('href')?.split('&')[0]
+  return element.children[0].children[0]
+    .getAttribute('href')
+    ?.split('&')[0]
+    .split('/watch?v=')[1]
 }
 
 var main = () => {
@@ -84,14 +89,14 @@ var main = () => {
         if (existingManagedItem) {
           setDismissibleElementVisibility(element, existingManagedItem.hidden)
         } else {
-          items.push({ watchId, hidden: false })
+          items.push({ watchId, hidden: 0 })
         }
       }
     }
     chrome.storage.sync.set({
       managedItems: items.map((item) =>
         getItemString(item.watchId, item.hidden)
-      ),
+      )
     })
   })
 }
