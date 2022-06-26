@@ -7,7 +7,6 @@ var onShiftClick = (e: any) => {
       ) as HTMLElement
       setDismissibleElementVisibility(dismissible, 1)
       const watchId = getWatchIdFromDismissibleElement(dismissible)
-      console.log(`set item with watchid ${watchId} to hidden`)
       if (watchId) {
         storeManagedItem(watchId, 1)
       }
@@ -33,7 +32,6 @@ var getItemString = (watchId: string, hidden: Hidden) => {
 }
 
 var storeManagedItem = (watchId: string, hidden: Hidden) => {
-  console.log(`DEBUG: setting ${watchId} to hidden: ${hidden}`)
   chrome.storage.sync.get('managedItems', ({ managedItems }) => {
     const storedManagedItems: ManagedItem[] = managedItems
       .filter((item: any) => typeof item === 'string')
