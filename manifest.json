@@ -9,5 +9,9 @@
   "browser_action": {
     "default_title": "Enable TY utils!"
   },
-  "permissions": ["tabs", "https://www.youtube.com/feed/subscriptions"]
+  "permissions": [
+    "storage",
+    "tabs",
+    "https://www.youtube.com/feed/subscriptions"
+  ]
 }
