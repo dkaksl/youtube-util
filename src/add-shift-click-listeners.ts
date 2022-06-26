@@ -60,11 +60,19 @@ var setDismissibleElementVisibility = (
   element.style.visibility = hidden === 1 ? 'hidden' : ''
 }
 
+var trimPrefixFromPath = (path: string) => {
+  if (path.startsWith('/watch?v=')) {
+    return path.split('/watch?v=')[1]
+  } else if (path.startsWith('/shorts/')) {
+    return path.split('/shorts/')[1]
+  }
+  return ''
+}
+
 var getWatchIdFromDismissibleElement = (element: HTMLElement) => {
-  return element.children[0].children[0]
-    .getAttribute('href')
-    ?.split('&')[0]
-    .split('/watch?v=')[1]
+  const path =
+    element.children[0].children[0].getAttribute('href')?.split('&')[0] || ''
+  return trimPrefixFromPath(path)
 }
 
 var main = () => {
